@@ -1,5 +1,4 @@
 aws_region= "us-east-1"
-aws_zone= ["us-east-1a", "us-east-1b"]
 ami= "ami-052efd3df9dad4825"
 type= "t2.micro"
 vm_tags= "lb"

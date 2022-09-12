@@ -1,8 +1,3 @@
-variable "aws_zone" {
-  type        = string
-  description = "aws zone for ec2 instance"
-}
-
 variable "ami" {
   type        = string
   description = "ami id for ec2 instance"
