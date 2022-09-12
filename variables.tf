@@ -70,7 +70,7 @@ variable "custom_vpc" {
   description = "custom vpc ip cidr block"
 }
 
-variable "region" {
+variable "aws_region" {
   type        = string
   description = "aws region for the instance and lb"
 }
