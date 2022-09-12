@@ -17,7 +17,7 @@ resource "aws_vpc" "project_vpc" {
 resource "aws_subnet" "project_public_subnet" {
   vpc_id            = aws_vpc.project_vpc.id
   cidr_block        = var.public_subnet
-  availability_zone = [var.aws_zones.all.names, count.index]
+  availability_zone = [data.var.aws_zones.all.names, count.index]
 
   tags = {
     Name = var.public_subnet_tags
@@ -133,7 +133,7 @@ resource "aws_alb_listener" "alb-listener" {
 resource "aws_lb_target_group_attachment" "ec2_attach" {
   count            = length(aws_instance.web_instance)
   target_group_arn = aws_lb_target_group.lb-target-group.arn
-  target_id        = aws_instance.web_instance[count.index].id
+  target_id        = data.aws_instance.web_instance[count.index].id
 }
 
 resource "aws_instance" "web_instance" {
