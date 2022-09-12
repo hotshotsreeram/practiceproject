@@ -16,8 +16,8 @@ resource "aws_vpc" "project_vpc" {
 
 resource "aws_subnet" "project_public_subnet" {
   vpc_id            = aws_vpc.project_vpc.id
-  cidr_block        = element(var.public_subnet,count.index)
-  availability_zone = element(var.aws_zone,count.index)
+  cidr_block        = element(var.public_subnet[count.index])
+  availability_zone = element(var.aws_zone[count.index])
 
   tags = {
     Name = var.public_subnet_tags
@@ -26,8 +26,8 @@ resource "aws_subnet" "project_public_subnet" {
 
 resource "aws_subnet" "project_private_subnet" {
   vpc_id            = aws_vpc.project_vpc.id
-  cidr_block        = element(var.private_subnet,count.index)
-  availability_zone = element(var.aws_zones,count.index)
+  cidr_block        = element(var.private_subnet[count.index])
+  availability_zone = element(var.aws_zone[count.index])
 
   tags = {
     Name = var.private_subnet_tags
@@ -141,7 +141,7 @@ resource "aws_instance" "web_instance" {
   instance_type = var.type
   key_name      = var.key
   count           = 2
-  subnet_id                   = element(aws_subnet.project_public_subnet.*.id,count.index)
+  subnet_id                   = element(aws_subnet.project_public_subnet.*.id[count.index])
   vpc_security_group_ids      = [aws_security_group.web_sg.id]
   associate_public_ip_address = true
 
