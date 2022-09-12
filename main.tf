@@ -17,7 +17,7 @@ resource "aws_vpc" "project_vpc" {
 resource "aws_subnet" "project_public_subnet" {
   vpc_id            = aws_vpc.project_vpc.id
   cidr_block        = var.public_subnet
-  availability_zone = var.aws_zones
+  availability_zone = [var.aws_zones.all.names, count.index]
 
   tags = {
     Name = var.public_subnet_tags
