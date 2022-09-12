@@ -1,5 +1,5 @@
-variable "aws_zones"{
-  type = list(string)
+variable "aws_zone"{
+  type = list
   description = "available aws zones"
 }
 
@@ -51,12 +51,12 @@ variable "key" {
 }
 
 variable "public_subnet" {
-  type        = string
+  type        = list
   description = "public subnet ip cidr block"
 }
 
 variable "private_subnet" {
-  type        = string
+  type        = list
   description = "private subnet ip cidr block"
 }
 

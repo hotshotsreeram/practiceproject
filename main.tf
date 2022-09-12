@@ -16,8 +16,8 @@ resource "aws_vpc" "project_vpc" {
 
 resource "aws_subnet" "project_public_subnet" {
   vpc_id            = aws_vpc.project_vpc.id
-  cidr_block        = var.public_subnet
-  availability_zone = [data.aws_zones, count.index]
+  cidr_block        = element(var.public_subnet,count.index)
+  availability_zone = element(var.aws_zone,count.index)
 
   tags = {
     Name = var.public_subnet_tags
@@ -26,8 +26,8 @@ resource "aws_subnet" "project_public_subnet" {
 
 resource "aws_subnet" "project_private_subnet" {
   vpc_id            = aws_vpc.project_vpc.id
-  cidr_block        = var.private_subnet
-  availability_zone = var.aws_zones
+  cidr_block        = element(var.private_subnet,count.index)
+  availability_zone = element(var.aws_zones,count.index)
 
   tags = {
     Name = var.private_subnet_tags
@@ -114,7 +114,7 @@ resource "aws_lb" "application-lb" {
   ip_address_type    = "ipv4"
   load_balancer_type = "application"
   security_groups    = [aws_security_group.web_sg.id]
-  subnets            = [aws_subnet.project_public_subnet.id]
+  subnets            = [aws_subnet.project_public_subnet.*.id]
 
 
 
@@ -133,7 +133,7 @@ resource "aws_alb_listener" "alb-listener" {
 resource "aws_lb_target_group_attachment" "ec2_attach" {
   count            = length(aws_instance.web_instance)
   target_group_arn = aws_lb_target_group.lb-target-group.arn
-  target_id        = data.aws_instance.web_instance[count.index].id
+  target_id        = aws_instance.web_instance[count.index].id
 }
 
 resource "aws_instance" "web_instance" {
@@ -141,7 +141,7 @@ resource "aws_instance" "web_instance" {
   instance_type = var.type
   key_name      = var.key
   count           = 2
-  subnet_id                   = aws_subnet.project_public_subnet.id
+  subnet_id                   = element(aws_subnet.project_public_subnet.*.id,count.index)
   vpc_security_group_ids      = [aws_security_group.web_sg.id]
   associate_public_ip_address = true
 

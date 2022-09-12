@@ -1,5 +1,5 @@
 aws_region= "us-east-1"
-aws_zones= ["us-east-1a" , "us-east-1b"]
+aws_zone= ["us-east-1a","us-east-1b"]
 ami= "ami-052efd3df9dad4825"
 type= "t2.micro"
 vm_tags= "lb"
@@ -9,8 +9,8 @@ private_subnet_tags= "lb private subnet"
 internet_gateway_tags= "lb internet gateway"
 route_table_tags= "public route table"
 key= "My_practice"
-public_subnet= "10.0.1.0/24"
-private_subnet= "10.0.2.0/24"
+public_subnet= ["10.0.1.0/24","10.0.2.0/24"]
+private_subnet= ["10.0.3.0/24", "10.0.4.0/24"]
 route_table= "0.0.0.0/0"
 custom_vpc= "10.0.0.0/16"
 lb_target_group= "dev-target-group"
