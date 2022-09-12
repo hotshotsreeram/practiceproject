@@ -114,7 +114,7 @@ resource "aws_lb" "application-lb" {
   ip_address_type    = "ipv4"
   load_balancer_type = "application"
   security_groups    = [aws_security_group.web_sg.id]
-  subnets            = aws_subnet.project_public_subnet.ids
+  subnets            = aws_subnet.project_public_subnet.id
 
 
 
