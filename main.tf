@@ -113,8 +113,9 @@ resource "aws_lb" "application-lb" {
   internal           = false
   ip_address_type    = "ipv4"
   load_balancer_type = "application"
-  vpc_security_group_ids      = [aws_security_group.web_sg.id]
-  subnet_id                   = aws_subnet.project_public_subnet.id
+  security_groups    = [aws_security_group.web_sg.id]
+  subnets            = aws_subnet_ids.project_public_subnet.ids
+
 
 
 }
@@ -130,9 +131,9 @@ resource "aws_alb_listener" "alb-listener" {
 }
 
 resource "aws_lb_target_group_attachment" "ec2_attach" {
-  count            = length(aws_instance.lb-web-server)
+  count            = length(aws_instance.web_instance)
   target_group_arn = aws_lb_target_group.lb-target-group.arn
-  target_id        = aws_instance.lb-web-server[count.index].id
+  target_id        = aws_instance.web_instance[count.index].id
 }
 
 resource "aws_instance" "web_instance" {
