@@ -1,5 +1,5 @@
 variable "aws_zones"{
-  type = string
+  type = list(string)
   description = "available aws zones"
 }
 
