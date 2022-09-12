@@ -161,7 +161,7 @@ resource "aws_instance" "web_instance" {
   instance_type = var.type
   key_name      = var.key
   count           = 2
-  subnet_id                   = [aws_subnet.project_public_subnet.id]
+  subnet_id                   = aws_subnet.project_public_subnet.id
   vpc_security_group_ids      = [aws_security_group.web_sg.id]
   associate_public_ip_address = true
 
