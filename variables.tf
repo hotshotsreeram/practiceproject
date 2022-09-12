@@ -1,5 +1,5 @@
 variable "aws_zone" {
-  type        = map
+  type        = string
   description = "aws zone for ec2 instance"
 }
 
