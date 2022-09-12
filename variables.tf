@@ -1,3 +1,8 @@
+variable "aws_zones"{
+  type = string
+  description = "available aws zones"
+}
+
 variable "ami" {
   type        = string
   description = "ami id for ec2 instance"
