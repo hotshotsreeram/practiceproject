@@ -1,5 +1,10 @@
-variable "aws_zone"{
-  type = list
+variable "aws_zone1"{
+  type = string
+  description = "available aws zones"
+}
+
+variable "aws_zone2"{
+  type = string
   description = "available aws zones"
 }
 
@@ -24,15 +29,25 @@ variable "vpc_tags"{
 	description= "tags for vpc"
 }
 
-variable "public_subnet_tags"{
+variable "public_subnet_tags1"{
 	type= string
 	description="tags for public subnet"
 }
 
-variable "private_subnet_tags"{
+variable "private_subnet_tags1"{
 	type= string
 	description= "tags for private subnet"
 } 
+
+variable "public_subnet_tags2"{
+	type= string
+	description="tags for public subnet"
+}
+
+variable "private_subnet_tags2"{
+	type= string
+	description= "tags for private subnet"
+}
 
 variable "internet_gateway_tags"{
 	type= string
@@ -50,13 +65,23 @@ variable "key" {
   sensitive   = true
 }
 
-variable "public_subnet" {
-  type        = list
+variable "public_subnet1" {
+  type        = string
   description = "public subnet ip cidr block"
 }
 
-variable "private_subnet" {
-  type        = list
+variable "private_subnet1" {
+  type        = string
+  description = "private subnet ip cidr block"
+}
+
+variable "public_subnet2" {
+  type        = string
+  description = "public subnet ip cidr block"
+}
+
+variable "private_subnet2" {
+  type        = string
   description = "private subnet ip cidr block"
 }
 

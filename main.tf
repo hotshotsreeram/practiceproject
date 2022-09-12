@@ -16,21 +16,41 @@ resource "aws_vpc" "project_vpc" {
 
 resource "aws_subnet" "project_public_subnet" {
   vpc_id            = aws_vpc.project_vpc.id
-  cidr_block        = var.public_subnet
-  availability_zone = var.aws_zone
+  cidr_block        = var.public_subnet1
+  availability_zone = var.aws_zone1
 
   tags = {
-    Name = var.public_subnet_tags
+    Name = var.public_subnet_tags1
   }
 }
 
 resource "aws_subnet" "project_private_subnet" {
   vpc_id            = aws_vpc.project_vpc.id
-  cidr_block        = var.private_subnet
-  availability_zone = var.aws_zone
+  cidr_block        = var.private_subnet1
+  availability_zone = var.aws_zone1
 
   tags = {
-    Name = var.private_subnet_tags
+    Name = var.private_subnet_tags1
+  }
+}
+
+resource "aws_subnet" "project_public_subnet2" {
+  vpc_id            = aws_vpc.project_vpc.id
+  cidr_block        = var.public_subnet2
+  availability_zone = var.aws_zone2
+
+  tags = {
+    Name = var.public_subnet_tags2
+  }
+}
+
+resource "aws_subnet" "project_private_subnet2" {
+  vpc_id            = aws_vpc.project_vpc.id
+  cidr_block        = var.private_subnet2
+  availability_zone = var.aws_zone2
+
+  tags = {
+    Name = var.private_subnet_tags2
   }
 }
 
@@ -114,7 +134,7 @@ resource "aws_lb" "application-lb" {
   ip_address_type    = "ipv4"
   load_balancer_type = "application"
   security_groups    = [aws_security_group.web_sg.id]
-  subnets            = [aws_subnet.project_public_subnet.*.id]
+  subnets            = [aws_subnet.project_public_subnet.id, aws_subnet.project_public_subnet2.id]
 
 
 
@@ -141,7 +161,7 @@ resource "aws_instance" "web_instance" {
   instance_type = var.type
   key_name      = var.key
   count           = 2
-  subnet_id                   = [aws_subnet.project_public_subnet.*.id]
+  subnet_id                   = [aws_subnet.project_public_subnet.id]
   vpc_security_group_ids      = [aws_security_group.web_sg.id]
   associate_public_ip_address = true
 
